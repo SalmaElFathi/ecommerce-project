@@ -6,7 +6,7 @@ return (
     <>
     <div className="header">
       <div className="left-section">
-        <a href="index.html" className="header-link">
+        <a href="/" className="header-link">
           <img className="logo"
             src="images/logo-white.png" />
           <img className="mobile-logo"
@@ -23,7 +23,7 @@ return (
       </div>
 
       <div className="right-section">
-        <a className="orders-link header-link" href="orders.html">
+        <a className="orders-link header-link" href="/orders">
 
           <span className="orders-text">Orders</span>
         </a>
