@@ -1,8 +1,11 @@
 import {Header} from '../components/Header';
 import './HomePage.css';
+import Checkmark from '../assets/images/icons/checkmark.png'
 export function HomePage(){
 return (
     <>
+    <title>Ecommerce Project</title>
+    <link rel="icon" type="image/svg+xml" href="home-favicon.png" />
     <Header/>
     <div className="home-page">
       <div className="products-grid">
@@ -46,7 +49,7 @@ return (
           <div className="product-spacer"></div>
 
           <div className="added-to-cart">
-            <img src="images/icons/checkmark.png" />
+            <img src={Checkmark}/>
             Added
           </div>
 
@@ -95,7 +98,7 @@ return (
           <div className="product-spacer"></div>
 
           <div className="added-to-cart">
-            <img src="images/icons/checkmark.png" />
+            <img src={Checkmark} />
             Added
           </div>
 
@@ -144,7 +147,7 @@ return (
           <div className="product-spacer"></div>
 
           <div className="added-to-cart">
-            <img src="images/icons/checkmark.png" />
+            <img src={Checkmark} />
             Added
           </div>
 
