@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import dayjs from 'dayjs';
-import { formatMoney } from '../utils/Money';
-import { Header } from '../components/Header';
+import { formatMoney } from '../../utils/Money';
+import { Header } from '../../components/Header';
 import './OrdersPage.css'
-import BuyAgain from '../assets/images/icons/buy-again.png'
+import BuyAgain from '../../assets/images/icons/buy-again.png'
 export function OrdersPage({ cart }) {
     const [orders, setOrders] = useState([]);
     useEffect(() => {
@@ -65,7 +65,7 @@ export function OrdersPage({ cart }) {
                                                     Quantity: {orderProduct.quantity}
                                                 </div>
                                                 <button className="buy-again-button button-primary">
-                                                    <img className="buy-again-icon" src="" />
+                                                    <img className="buy-again-icon" src={BuyAgain} />
                                                     <span className="buy-again-message">Add to Cart</span>
                                                 </button>
                                             </div>
