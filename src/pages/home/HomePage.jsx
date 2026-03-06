@@ -7,10 +7,13 @@ import './HomePage.css';
 export function HomePage({cart}) {
   const [products,setProducts]=useState([]);
   useEffect(()=>{
-  axios.get('/api/products')
+    const getHomeData=async ()=>{
+      const response=await  axios.get('/api/products');
+      setProducts(response.data)
+    }
+ 
   //.then(response=>response.json())
-  .then(response=>setProducts(response.data));
-
+    getHomeData();
   
   },[])
 
