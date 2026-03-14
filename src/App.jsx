@@ -18,6 +18,7 @@ function App() {
     } //outside useEffect so that we can reuse it as a prop to home Page
   useEffect(() => {
     loadCart();
+    window.axios=axios;
      }
     , [])
   return (
