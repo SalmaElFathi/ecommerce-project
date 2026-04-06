@@ -1,13 +1,16 @@
 import { it, expect, describe, vi, beforeEach } from 'vitest';
-import { render, screen,within} from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
+import { userEvent } from '@testing-library/user-event'
 import axios from 'axios';
 import { MemoryRouter } from 'react-router';
 import { HomePage } from './HomePage';
 vi.mock('axios');
 describe('Product Components', () => {
   let loadCart;
+  let user;
   beforeEach(() => {
     loadCart = vi.fn();
+    user = userEvent.setup()
     axios.get.mockImplementation(async (url) => {
       if (url === '/api/products') {
         return {
@@ -36,21 +39,48 @@ describe('Product Components', () => {
         }
       }
     })
+    vi.mock('../../components/Header', () => ({   
+      Header: () => <div>Header Mock</div>
+    }));
   })
 
-  it('displays the products correct',async () => {
+  it('displays the products correct', async () => {
     render(
       <MemoryRouter>
         <HomePage cart={[]} loadCart={loadCart} />
       </MemoryRouter>
     )
-    const productContainers=await screen.findAllByTestId('product-container');
+    const productContainers = await screen.findAllByTestId('product-container');
     expect(productContainers.length).toBe(2);
     expect(within(productContainers[0])
       .getByText('Black and Gray Athletic Cotton Socks - 6 Pairs'))
       .toBeInTheDocument();
-      expect(within(productContainers[1])
+    expect(within(productContainers[1])
       .getByText('Intermediate Size Basketball'))
       .toBeInTheDocument();
   })
+  it('add a product', async () => {
+    render(<MemoryRouter>
+      <HomePage cart={[]} loadCart={loadCart} />
+    </MemoryRouter>)
+    const productContainer = await screen.findAllByTestId('product-container');
+    const addToCartButton = within(productContainer[0]).getByTestId('add-to-cart-button');
+    const quantitySelector1 = within(productContainer[0]).getByTestId('quantity');
+    const quantitySelector2 = within(productContainer[1]).getByTestId('quantity');
+    await user.selectOptions(quantitySelector1, '2');
+    await user.selectOptions(quantitySelector2, '3');
+    await addToCartButton.click();
+    const addToCartButton2 = within(productContainer[1]).getByTestId('add-to-cart-button');
+    await addToCartButton2.click();
+    expect(axios.post).toHaveBeenNthCalledWith(1, '/api/cart-items', {
+      productId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
+      quantity: 2
+    })
+    expect(axios.post).toHaveBeenNthCalledWith(2, '/api/cart-items', {
+      productId: "15b6fc6f-327a-4ec4-896f-486349e85a3d",
+      quantity: 3
+    })
+    expect(loadCart).toHaveBeenCalledTimes(2)
+  })
+
 });

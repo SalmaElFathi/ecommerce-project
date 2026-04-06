@@ -1,6 +1,6 @@
 import { it, expect, describe, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { userEvent } from '@testing-library/user-event'
+import  userEvent from '@testing-library/user-event'
 import axios from 'axios';
 import { Product } from './Product';
 vi.mock('axios');
@@ -22,6 +22,7 @@ describe('Product Components', () => {
     };
     loadCart = vi.fn();
     user= userEvent.setup();
+    
   })
   it('displays the product details correctly', () => {
     render(<Product product={product} loadCart={loadCart} />);

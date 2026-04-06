@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { NavLink,useNavigate,useSearchParams } from 'react-router';
+import { NavLink,useNavigate,useSearchParams } from 'react-router-dom';
 import './header.css';
 import SearchIcon from '../assets/images/icons/search-icon.png';
 import CartIcon from '../assets/images/icons/cart-icon.png';
